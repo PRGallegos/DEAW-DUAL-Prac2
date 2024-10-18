@@ -16,44 +16,25 @@ Vagrant.configure("2") do |config|
     tierra.vm.box = "debian/bullseye64"
     tierra.vm.network "private_network", ip: "192.168.57.103"
     tierra.vm.hostname = "tierra.sistema.test"
-  
-    # Provisionar tierra
+
     tierra.vm.provision "shell", inline: <<-SHELL
-      apt-get update
-      apt-get install -y bind9 bind9utils bind9-doc
-      echo "Configurando servidor tierra (tierra.sistema.test)"
+      cp -v /vagrant/files/named.conf /etc/bind/
     SHELL
   end
 
-  # Configuración del servidor venus (venus.sistema.test)
+  # Configuración del servidor venus (venus.sistema.test).
   config.vm.define "venus" do |venus|
     venus.vm.box = "debian/bullseye64"
     venus.vm.network "private_network", ip: "192.168.57.102"
     venus.vm.hostname = "venus.sistema.test"
-  
-    # Provisionar venus
-    venus.vm.provision "shell", inline: <<-SHELL
-      apt-get update
-      apt-get install -y bind9 bind9utils bind9-doc
-      echo "Configurando servidor venus (venus.sistema.test)"
-
-    SHELL
   end
 
-  # Configuración común para instalar Apache en ambos servidores si es necesario
+  # Configuración común para instalar Apache y Bind9 en ambos servidores si es necesario
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y apache2
     apt-get install -y bind9
 
-    # Modificar la configuración de Apache para que Apache escuche solo en IPv4
-    sed -i 's/Listen 80/Listen 192.168.57.103:80/g' /etc/apache2/ports.conf
-
-    # Modificar dnssec-validation en Bind para que sea "yes"
-    sed -i '/options {/a \ \ dnssec-validation yes;' /etc/bind/named.conf.options
-
     # Reiniciar para aplicar los cambios
-    systemctl restart apache2
     systemctl restart bind9
   SHELL
 end
