@@ -1,5 +1,12 @@
-# ignora los archivos .vagrant
+# Ignora los archivos .vagrant
 .vagrant/
 
-# ignora los archivos .backup
+# Ignora los archivos .backup
+*~
+*.swp
+*.swo
+.#*
+*#
 *.bak
+*.old
+*.tmp
