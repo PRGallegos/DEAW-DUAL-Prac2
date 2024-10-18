@@ -8,34 +8,34 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Configuración de Vagrant para los servidores DNS maestro y esclavo.
+# Configuración de Vagrant para los servidores DNS tierra y venus.
 Vagrant.configure("2") do |config|
 
-  # Configuración del servidor maestro (tierra.sistema.test)
-  config.vm.define "maestro" do |maestro|
-    maestro.vm.box = "debian/bullseye64"
-    maestro.vm.network "private_network", ip: "192.168.57.103"
-    maestro.vm.hostname = "tierra.sistema.test"
+  # Configuración del servidor tierra (tierra.sistema.test)
+  config.vm.define "tierra" do |tierra|
+    tierra.vm.box = "debian/bullseye64"
+    tierra.vm.network "private_network", ip: "192.168.57.103"
+    tierra.vm.hostname = "tierra.sistema.test"
   
-    # Provisionar maestro
-    maestro.vm.provision "shell", inline: <<-SHELL
+    # Provisionar tierra
+    tierra.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install -y bind9 bind9utils bind9-doc
-      echo "Configurando servidor maestro (tierra.sistema.test)"
+      echo "Configurando servidor tierra (tierra.sistema.test)"
     SHELL
   end
 
-  # Configuración del servidor esclavo (venus.sistema.test)
-  config.vm.define "esclavo" do |esclavo|
-    esclavo.vm.box = "debian/bullseye64"
-    esclavo.vm.network "private_network", ip: "192.168.57.102"
-    esclavo.vm.hostname = "venus.sistema.test"
+  # Configuración del servidor venus (venus.sistema.test)
+  config.vm.define "venus" do |venus|
+    venus.vm.box = "debian/bullseye64"
+    venus.vm.network "private_network", ip: "192.168.57.102"
+    venus.vm.hostname = "venus.sistema.test"
   
-    # Provisionar esclavo
-    esclavo.vm.provision "shell", inline: <<-SHELL
+    # Provisionar venus
+    venus.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install -y bind9 bind9utils bind9-doc
-      echo "Configurando servidor esclavo (venus.sistema.test)"
+      echo "Configurando servidor venus (venus.sistema.test)"
 
     SHELL
   end
