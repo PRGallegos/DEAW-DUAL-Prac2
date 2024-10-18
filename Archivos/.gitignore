@@ -1,0 +1,5 @@
+# ignora los archivos .vagrant
+.vagrant/
+
+# ignora los archivos .backup
+*.bak
