@@ -1,11 +1,13 @@
 include "/etc/bind/zones.rfc1918";
 
 zone "sistema.test" {
-    type master;
+    type slave;
     file "/etc/bind/sistema.test.zone";
+    masters { 192.168.57.103; };
 };
 
 zone "57.168.192.in-addr.arpa" {
-    type master;
+    type slave;
     file "/etc/bind/sistema.test.rev";
+    masters { 192.168.57.103; };
 };
