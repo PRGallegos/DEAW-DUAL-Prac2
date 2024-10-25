@@ -11,34 +11,32 @@
 # Configuración de Vagrant para los servidores DNS tierra y venus.
 Vagrant.configure("2") do |config|
 
-  # Configuración común para instalar Apache y Bind9 en ambos servidores si es necesario
-  config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-    apt-get install -y bind9
-    systemctl restart bind9
-    SHELL
+    # Configuración común para instalar Apache y Bind9 en ambos servidores si es necesario
+    config.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get install -y bind9 bind9utils bind9-doc
+        systemctl restart bind9
+        SHELL
 
-  # Configuración del servidor tierra (tierra.sistema.test)
-  config.vm.define "tierra" do |tierra|
-    tierra.vm.box = "debian/bookworm64"
-    tierra.vm.network "private_network", ip: "192.168.57.103"
-    tierra.vm.hostname = "tierra.sistema.test"
+    # Configuración del servidor tierra (tierra.sistema.test)
+    config.vm.define "tierra" do |tierra|
+      tierra.vm.box = "debian/bookworm64"
+      tierra.vm.network "private_network", ip: "192.168.57.103"
+      tierra.vm.hostname = "tierra.sistema.test"
 
-    tierra.vm.provision "shell", inline: <<-SHELL
-      cp -v /vagrant/files/named.conf.options /etc/bind/named.conf.options
-      cp -v /vagrant/named /etc/default/named
-    SHELL
-  end
+      tierra.vm.provision "shell", inline: <<-SHELL
+        cp -v /etc/bind/named.conf.options /etc/bind/
+      SHELL
+    end
 
-  # Configuración del servidor venus (venus.sistema.test).
-  config.vm.define "venus" do |venus|
-    venus.vm.box = "debian/bookworm64"
-    venus.vm.network "private_network", ip: "192.168.57.102"
-    venus.vm.hostname = "venus.sistema.test"
-    venus.vm.provision "shell", inline: <<-SHELL
-      cp -v /vagrant/files/named.conf.options /etc/bind/named.conf.options
-      cp -v /vagrant/named /etc/default/named
-    SHELL
-  end
+    # Configuración del servidor venus (venus.sistema.test).
+    config.vm.define "venus" do |venus|
+        venus.vm.box = "debian/bookworm64"
+        venus.vm.network "private_network", ip: "192.168.57.102"
+        venus.vm.hostname = "venus.sistema.test"
+        venus.vm.provision "shell", inline: <<-SHELL
+          cp -v /etc/bind/named.conf.options /etc/bind/named.conf.options.backup
+        SHELL
+    end
 end
 
