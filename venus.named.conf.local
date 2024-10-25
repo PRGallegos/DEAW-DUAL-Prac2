@@ -1,8 +1,11 @@
-//
-// Do any local configuration here
-//
+include "/etc/bind/zones.rfc1918";
 
-// Consider adding the 1918 zones here, if they are not used in your
-// organization
-//include "/etc/bind/zones.rfc1918";
+zone "sistema.test" {
+    type master;
+    file "/etc/bind/sistema.test.zone";
+};
 
+zone "57.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/sistema.test.rev";
+};
