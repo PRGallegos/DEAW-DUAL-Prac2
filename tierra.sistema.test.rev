@@ -1,0 +1,18 @@
+;
+; Zona inversa para 192.168.57.0/24
+;
+$TTL    86400
+@   IN  SOA debian.deaw.es. admin.deaw.es. (
+         2023102501 ; Serial ①
+         3600       ; Refresh
+         1800       ; Retry
+         604800     ; Expire
+         86400      ; Negative Cache TTL
+)
+;
+@       IN  NS      debian.deaw.es.
+
+101     IN  PTR     mercurio.sistema.test.
+102     IN  PTR     venus.sistema.test.
+103     IN  PTR     tierra.sistema.test.
+104     IN  PTR     marte.sistema.test.

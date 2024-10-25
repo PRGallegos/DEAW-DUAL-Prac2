@@ -1,0 +1,20 @@
+;
+; Zona de tierra.sistema.test
+;
+$TTL    86400
+@   IN  SOA debian.deaw.es. admin.deaw.es. (
+         2023102501 ; Serial ① (Formato AAAAMMDDnn para facilitar la actualización)
+         3600       ; Refresh
+         1800       ; Retry
+         604800     ; Expire
+         86400      ; Negative Cache TTL
+)
+;
+@       IN  NS      debian.deaw.es.
+tierra  IN  A       192.168.57.103
+venus   IN  A       192.168.57.102
+marte   IN  A       192.168.57.104
+mercurio IN A       192.168.57.101
+mail    IN  CNAME   marte.sistema.test.
+ns1     IN  A       192.168.57.103
+ns2     IN  A       192.168.57.102
