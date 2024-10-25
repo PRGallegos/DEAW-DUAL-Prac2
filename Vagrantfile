@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
         venus.vm.hostname = "venus.sistema.test"
         venus.vm.provision "shell", inline: <<-SHELL
           cp -v /vagrant/named.conf.options /etc/bind/named.conf.options
-          cp -v /vagrant/named.conf /etc/default/named
+          cp -v /vagrant/named /etc/default/named
           cp -v /vagrant/venus.named.conf.local /etc/bind/named.conf.local 
         SHELL
     end
