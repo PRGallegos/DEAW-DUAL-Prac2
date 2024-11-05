@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
         systemctl restart bind9
         SHELL
 
-    # Configuración del servidor tierra (tierra.sistema.test)
+    # Configuración del servidor tierra (tierra.sistema.test) 
     config.vm.define "tierra" do |tierra|
       tierra.vm.box = "debian/bookworm64"
       tierra.vm.network "private_network", ip: "192.168.57.103"
