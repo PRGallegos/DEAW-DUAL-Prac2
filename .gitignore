@@ -1,2 +1,5 @@
 # Ignora los archivos .vagrant
 .vagrant/
+
+# Ignora la carpeta vagrant
+/vagrant
